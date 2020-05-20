@@ -35,33 +35,67 @@ public class Juego {
     }
     
     public String jugarParte1(){                //ESTE, Y JUEGO2, SERÁN LOS ÚLTIMOS MÉTODOS EN HACERSE
-        System.out.println("Procederemos a crear tu personaje. Primero, ¿cómo te llamas?: ");
-        String quenombre= teclado.nextLine();
-        System.out.println("Elige una raza: ");
-        String queraza = teclado.nextLine();
-        System.out.println("Por último, elige una clase: \nESCUDERO -- E \nMAGO -- M \nLADRÓN -- L \n");
-        respuesta = teclado.nextLine();
-        
         Clase queclase;
+        Raza queraza;
+        String quenombre;
         
-        switch(respuesta.toUpperCase()){
-            case "E": queclase = new Escudero();break;   //Sé que lo del switch no tiene mucho sentido, únicamente es para darle más "sensación de menú"
-            case "M": queclase = new Mago();break;
-            case "L": queclase = new Ladron();break;
-        }   //SUBIR A GITHUB Y HACER ACTUALIZACIONES CON GIT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        System.out.println("Procederemos a crear tu personaje. Primero, ¿cómo te llamas?: ");
+        quenombre= teclado.nextLine();
+        
+        queraza = setRaza();
+        queclase = setClase();
+        
+        //SUBIR A GITHUB Y HACER ACTUALIZACIONES CON GIT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
         aniadirJugador(quenombre, queraza, queclase);
         
+        //AQUÍ EL RESTO DE JUEGO: CONTEXTO, ENTRAR EN COMBATE, SALIR, GUARDAR
         return quenombre;
     }
+    
     
     public void jugarParte2(){
         despedida();
     }
     
-    private void aniadirJugador(String n){
-        jugadores.add(new Jugador(n));
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    private Raza setRaza(){
+        Raza queraza;
+        
+        System.out.println("Elige una raza: \nHUMANO -- H \nORCO -- O \nELFO -- E \n");
+        respuesta = teclado.nextLine();
+        
+        switch(respuesta.toUpperCase()){
+            case "H": queraza = Raza.HUMANO;break;   //Sé que lo del switch no tiene mucho sentido, únicamente es para darle más "sensación de menú"
+            case "O": queraza = Raza.ORCO;break;
+            default: queraza = Raza.ELFO;
+        }
+        return queraza;
     }
+    
+    
+    private Clase setClase(){
+        Clase queclase;
+        
+        System.out.println("Por último, elige una clase: \nESCUDERO -- E \nMAGO -- M \nLADRÓN -- L \n");
+        respuesta = teclado.nextLine();
+        
+        switch(respuesta.toUpperCase()){
+            case "E": queclase = new Escudero();break;   //Sé que lo del switch no tiene mucho sentido, únicamente es para darle más "sensación de menú"
+            case "M": queclase = new Mago();break;
+            default: queclase = new Ladron();
+        }
+        return queclase;
+    }
+    
+    
+    
+    private void aniadirJugador(String n, Raza r, Clase c){
+        jugadores.add(new Jugador(n, r, c));
+    }
+    
+    
     
     private void despedida(){
         

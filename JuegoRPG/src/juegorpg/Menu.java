@@ -56,8 +56,10 @@ public class Menu {
     
     private void escogerOpcion(){
         switch(opcion){
-            case 1:comenzar();break;        //SI DA TIEMPO, HACER GUARDAR PARTIDA + CONTINUAR (HASHMAP)
+            case 1:comenzar();break;        
             case 2:borrar();break;
+            case 3: continuar();break;
+            case 4: return;
             default: break;
         }
     }
@@ -83,33 +85,58 @@ public class Menu {
     }
     
     private void borrar(){
+        boolean borrado = false;
+        teclado= new Scanner(System.in);
         String aux;
-        
         imprimirPartidas();
         
-        System.out.println("\nNúmero de partida: ");
+        System.out.println("\nNombre de la partida: ");
+        
         aux=teclado.nextLine();
         
-        Iterator<String> it = partidas.keySet().iterator();
-        String each = it.next();
+        Iterator<Map.Entry<String, Juego>> it = partidas.entrySet().iterator();
         
         while(it.hasNext()){
-            if(each.equals(aux)) it.remove();
+            if(it.next().getKey().equals(aux)){
+                it.remove();
+                borrado = true;
+            }
+         
         }
+        if(borrado) System.out.println("borrado con éxito.");
+        else System.out.println("No se ha borrado. Prueba con otro nombre.");
+        
     }
     
-    private void guardar(String n, Juego j){
+    
+    private void continuar(){
+        teclado= new Scanner(System.in);
+        String aux;
+        imprimirPartidas();
+        
+        System.out.println("\nNombre de la partida: ");
+        aux=teclado.nextLine();
+        
+        for(String each:partidas.keySet()){
+            if(each.equals(aux)) partidas.get(each).jugarParte2();
+        }
+        
+    }
+    
+    
+    public void guardar(String n, Juego j){
         partidas.put(n, j);
     }
     
     private void imprimirPartidas(){
-        System.out.println("***********************************************\n*            LISTA DE PARTIDAS           *\n***********************************************");
+        int i = 0;
+        System.out.println("***********************************************\n*            LISTA DE PARTIDAS                *\n***********************************************");     
         
-        Juego aux = (Juego) partidas.values();
-        
-        for(int i=0;i<partidas.size();i++){
-            System.out.println(i+".- "+aux.getJugadores().get(i).getNombre()+"\n");
+        for(String each: partidas.keySet()){
+            System.out.println((i+1)+".- "+each+"\n"); //imprime la partida por su nombre, que, como es el mismo que el del jugador, pongo uno u otro
+            i++;
         }
+        
     }
     
 }

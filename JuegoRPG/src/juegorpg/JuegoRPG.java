@@ -17,6 +17,10 @@ public class JuegoRPG {
     public static void main(String[] args) {
        Menu mio = new Menu();
        
+       mio.guardar("Ale", new Juego());
+       mio.guardar("Cat", new Juego());
+       mio.guardar("Seisdedos", new Juego());
+       mio.aplicarMenu();
        
     }
     
