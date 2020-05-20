@@ -9,16 +9,12 @@ package juegorpg;
  *
  * @author alepa
  */
-public class JuegoRPG {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-       Menu mio = new Menu();
-       
-       mio.aplicarMenu();
-       
-    }
+public class Objeto {
+    protected String nombre;
+    protected String descripcion;
     
+    public Objeto(String n, String d){
+        nombre = n.toUpperCase();
+        descripcion = d;
+    }
 }

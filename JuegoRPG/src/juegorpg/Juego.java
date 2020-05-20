@@ -43,7 +43,7 @@ public class Juego {
         quenombre= teclado.nextLine();
         
         queraza = setRaza();
-        queclase = setClase();
+        queclase = setClase(queraza);
         
         //SUBIR A GITHUB Y HACER ACTUALIZACIONES CON GIT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
@@ -75,16 +75,43 @@ public class Juego {
     }
     
     
-    private Clase setClase(){
-        Clase queclase;
+    private Clase setClase(Raza r){     //defino el mismo switch para los tres casos de razas: haz la selección en bucle hasta que la respuesta sea la clase correcta.
+        Clase queclase = null;
         
         System.out.println("Por último, elige una clase: \nESCUDERO -- E \nMAGO -- M \nLADRÓN -- L \n");
         respuesta = teclado.nextLine();
         
+        if(r == Raza.HUMANO){
+        do{    
         switch(respuesta.toUpperCase()){
-            case "E": queclase = new Escudero();break;   //Sé que lo del switch no tiene mucho sentido, únicamente es para darle más "sensación de menú"
-            case "M": queclase = new Mago();break;
-            default: queclase = new Ladron();
+            case "E": queclase = new Escudero("Escudero");break;
+            case "L": queclase = new Ladron("Ladrón");break;
+            default: System.out.println("Esa clase no es válida para tu raza.\n");
+        }}
+        while(respuesta.toUpperCase() != "E" || respuesta.toUpperCase() != "L");
+        
+        }
+        
+        if(r == Raza.ORCO){
+        do{    
+        switch(respuesta.toUpperCase()){
+            case "E": queclase = new Escudero("Escudero");break;
+            case "M": queclase = new Mago("Mago");break;
+            default: System.out.println("Esa clase no es válida para tu raza.\n");
+        }}
+        while(respuesta.toUpperCase() != "E" || respuesta.toUpperCase() != "M");
+        
+        }
+        
+        if(r == Raza.ELFO){
+        do{    
+        switch(respuesta.toUpperCase()){
+            case "M": queclase = new Escudero("Escudero");break;
+            case "L": queclase = new Ladron("Ladrón");break;
+            default: System.out.println("Esa clase no es válida para tu raza.\n");
+        }}
+        while(respuesta.toUpperCase() != "M" || respuesta.toUpperCase() != "L");
+        
         }
         return queclase;
     }

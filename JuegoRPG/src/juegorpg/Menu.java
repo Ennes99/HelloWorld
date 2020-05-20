@@ -124,7 +124,7 @@ public class Menu {
     }
     
     
-    public void guardar(String n, Juego j){
+    private void guardar(String n, Juego j){
         partidas.put(n, j);
     }
     
