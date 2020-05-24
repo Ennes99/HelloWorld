@@ -49,10 +49,10 @@ public class Juego {
         
         aniadirJugador(quenombre, queraza, queclase);
         
-        //AQUÍ EL RESTO DE JUEGO: CONTEXTO, ENTRAR EN COMBATE, SALIR, GUARDAR
-        return quenombre;
-    }
-    
+        //AQUÍ EL RESTO DE JUEGO: CONTEXTO, ENTRAR EN COMBATE, SALIR, GUARDAR.   EN LOS COMBATES, FINALIZAR CADA TURNO DICIENDO LA VIDA DE CADA UNO Y MANÁ DEL JUGADOR
+        return quenombre;                   
+    }                       //IMPORTANTE TURNOS: los objetos también podrán llamar a jugador.atacar() / enemigo.atacar(), para cuando tengan el efecto de que el jugador
+                            //o enemigo ataque más de una vez / se quede sin atacar (en esencia, es lo mismo, salvo por cambiar quién ataca dos veces)
     
     public void jugarParte2(){
         despedida();

@@ -17,22 +17,18 @@ public class Ladron extends Clase{
     
     public void setCaracteristicas(){ //las características base de un Jugador. Aumentarán con los bonus o los objetos
         carac_combate.put("atq", 10);
-        carac_combate.put("atq_m", 10);
-        carac_combate.put("def", 13);
-        carac_combate.put("vel", 7);
-        carac_combate.put("ps", 40);
+        carac_combate.put("atq_m", 8);
+        carac_combate.put("def", 7);
+        carac_combate.put("vel", 14);
+        carac_combate.put("ps",35);
         carac_combate.put("pm", 3);
         
     }
     
     public Objeto objetoEspecial(String nom, String desc){
-        Objeto aux = new Objeto(nom, desc);
+        Objeto aux = new Brazalete();
         //crea un objeto único de cada clase, para que luego el jugador lo añada a su bolsa
         return aux;
     }
     
-    @Override
-    public String toString(){
-        return super.getClase()+" (+"+super.getBonus()+" def, "+super.getClase()+" vel)";
-    }
 }
