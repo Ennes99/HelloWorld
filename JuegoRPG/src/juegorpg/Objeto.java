@@ -43,6 +43,6 @@ public class Objeto {
     
     @Override
     public String toString(){
-        return nombre.toUpperCase()+"\n"+"descripcion";
+        return nombre.toUpperCase();
     }
 }

@@ -12,14 +12,34 @@ import java.util.*;
  */
 public abstract class Clase {
     private final String queclase;
+    private final int vidamax;
+    private final int manamax;
     protected HashMap<String, Integer> carac_combate; //ataque, ataque mágico, defensa, velocidad, salud y maná
     
         public Clase(String c){
             queclase = c.toUpperCase();
             setCaracteristicas();
+            vidamax = carac_combate.get("ps");
+            manamax = carac_combate.get("pm");
         }
         
-        public String getClase(){
+        public int getVidaTotal(){
+            return vidamax;
+        }
+        
+        public int getManaTotal(){
+            return manamax;
+        }
+        
+        public int getVida(){
+            return carac_combate.get("ps");
+        }
+        
+        public int getMana(){
+            return carac_combate.get("pm");
+        }
+        
+        public String getNombreClase(){
             return queclase;
         }
         
@@ -34,81 +54,57 @@ public abstract class Clase {
         public abstract Objeto objetoEspecial(String nom, String desc); //cada clase empieza con un objeto especial
         
         public void sumaORestaMana(int cuanto){
-            int maximo;
-            int mana = carac_combate.get("pm");
-         
-            switch(queclase){
-                case "MAGO": maximo = 5;
-                case "ESCUDERO": maximo = 1;
-                default: maximo = 2;
-            }
-            
-            if(carac_combate.get("pm") == maximo && cuanto>0){
+            if(carac_combate.get("pm") == manamax && cuanto>0){
                 System.out.println("Tus PM ya están al máximo.");
             }
-            else if(carac_combate.get("pm") != maximo){
-                int diferencia = maximo - mana;
+            else if(carac_combate.get("pm") != manamax){
+                int diferencia = manamax - getMana();
                 
                 if(cuanto > diferencia){
-                carac_combate.put("pm", maximo);
+                carac_combate.put("pm", manamax);
                 }
                 
-                else carac_combate.put("pm", mana + cuanto);
+                else carac_combate.put("pm", getMana() + cuanto);
             }
             
-            else if(cuanto<0 && -1*cuanto>mana){
+            else if(cuanto<0 && -1*cuanto>getMana()){
                 carac_combate.put("pm", 0);
             }
             
-            else carac_combate.put("pm", mana + cuanto);
+            else carac_combate.put("pm", getMana() + cuanto);
         }
         
         
         
         public void sumaORestaVida(int cuanto){
-            int maximo;
-            int vida = carac_combate.get("ps");
-            
-            switch(queclase){
-                case "MAGO": maximo = 30;
-                case "ESCUDERO": maximo = 40;
-                default: maximo = 35;
-            }
-            
-            if(carac_combate.get("pm") == maximo && cuanto>0){
+            if(carac_combate.get("pm") == vidamax && cuanto>0){
                 System.out.println("Tus PS ya están al máximo.");
             }
-            else if(carac_combate.get("pm") != maximo){
-                int diferencia = maximo - vida;
+            else if(carac_combate.get("pm") != vidamax){
+                int diferencia = vidamax - getVida();
                 
                 if(cuanto > diferencia){
-                carac_combate.put("pm", maximo);
+                carac_combate.put("pm", vidamax);
                 }
                 
-                else carac_combate.put("pm", vida + cuanto);
+                else carac_combate.put("pm", getVida() + cuanto);
             }
             
-            else if(cuanto<0 && -1*cuanto>vida){
+            else if(cuanto<0 && -1*cuanto>getVida()){
                 carac_combate.put("pm", 0);
             }
             
-            else carac_combate.put("pm", vida + cuanto);
+            else carac_combate.put("pm", getVida() + cuanto);
         }
+        
+        
         
         public String toString(){
             return queclase+"\n"+carac_combate;
         }
         
-        public String toStringVidaMana(){
-            int maximo;
-            
-            switch(queclase){
-                case "MAGO": maximo = 30;
-                case "ESCUDERO": maximo = 40;
-                default: maximo = 35;
-            }
-            
-            return " - "+carac_combate.get("ps")+"/"+maximo;    //antes del guión vendría el nombre del jugador. Eso ya printear en el jugador.
+        public String toStringVidaMana(){  
+            return " - "+carac_combate.get("ps")+"/"+vidamax+"\n   "+carac_combate.get("pm")+"/"+manamax;    //antes del guión vendría el nombre del jugador. Eso ya printear en el jugador.
         }
         
 }

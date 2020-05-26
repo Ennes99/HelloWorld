@@ -38,25 +38,22 @@ public abstract class Pocion extends Objeto implements Efecto, Combinable{
         Construccion material = null;
         
         if(otro.equals(this)) System.out.println("Dos objetos iguales no se pueden combinar");
-        else if(otro instanceof Construccion) material = (Construccion) otro;
-        else{
-            System.out.println("No se ha podido combinar.");
-            return null;
-        } 
         
-        if(nombre.equalsIgnoreCase("botella vacía") && (material.getNombre().equalsIgnoreCase("sangre") || material.getNombre().equalsIgnoreCase("mocos"))){
-            if(material.getNombre().equalsIgnoreCase("sangre")) aux = new PocionVida();
-            else aux = new PocionMana();
-            this.eliminarDeMochila();
-            material.eliminarDeMochila();
-            return aux;
+        else if(otro instanceof Construccion){ 
+        material = (Construccion) otro;
+        
+            if(nombre.equalsIgnoreCase("botella vacía") && (material.getNombre().equalsIgnoreCase("sangre") || material.getNombre().equalsIgnoreCase("mocos"))){
+                if(material.getNombre().equalsIgnoreCase("sangre")) aux = new PocionVida();
+                else aux = new PocionMana();
+                this.eliminarDeMochila();
+                material.eliminarDeMochila();
+                return aux;
+            }
         }
-        
-        else{
-            System.out.println("No se ha podido combinar.");
-            return null;
-        } 
+        return null;
+         
     }
+    
     
     public void eliminarDeMochila(){
         try{

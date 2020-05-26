@@ -25,7 +25,7 @@ public class PocionMana extends Pocion{
                                 //el enemigo tendrá una mínima posibilidad de atacar dos veces "debido al fuerte olor"
         if(num>=4){
                 System.out.println("El fuerte olor de la poción a alentado al enemigo. ¡Ataca dos veces!");
-                aquien.combate();
+                aquien.menuBatalla();
             }
         inutilizar();
         }

@@ -17,13 +17,11 @@ public class Construccion extends Objeto implements Combinable{ //Sangre o mocos
         descripcion = "se puede combinar con otro objeto"; //
     }
     
+    
     public Objeto combinarCon(Objeto otro){
         Pocion aux;
         
-        if(otro.equals(this)){
-            System.out.println("Dos objetos iguales no se pueden combinar");
-            return null;
-        }
+        if(otro.equals(this)) System.out.println("Dos objetos iguales no se pueden combinar");
             
         else if(otro instanceof Pocion){ 
             aux = (Pocion) otro;
@@ -31,16 +29,13 @@ public class Construccion extends Objeto implements Combinable{ //Sangre o mocos
         }
         
         else if(otro.getNombre().equalsIgnoreCase("sangre") && nombre.equalsIgnoreCase("mocos")){
-            System.out.println("Mezclas sangre y mocos mágicos, obteniendo una sustancia extraña. Te la comes y... ¡Tu vida ha aumentado 2 PS");
+            System.out.println("Mezclas sangre y mocos mágicos, obteniendo una sustancia extraña. Te la comes y... ¡Tu vida ha aumentado 2 PS sobre el total!");
             return null;
         }
-        
-        else{   //sería la opción de que "otro" fuera un Amuleto. Se incrementa su bonus en 1
-        System.out.println("Al combinar "+nombre+" con tu "+otro.getNombre()+", este se vuelve más resistente. Ganas un poco de defensa.");
+
         return null;
-        }
-        
     }
+    
     
     
     public void eliminarDeMochila(){

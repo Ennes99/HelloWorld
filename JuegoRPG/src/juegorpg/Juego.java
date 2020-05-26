@@ -49,13 +49,16 @@ public class Juego {
         
         aniadirJugador(quenombre, queraza, queclase);
         
-        //AQUÍ EL RESTO DE JUEGO: CONTEXTO, ENTRAR EN COMBATE, SALIR, GUARDAR.   EN LOS COMBATES, FINALIZAR CADA TURNO DICIENDO LA VIDA DE CADA UNO Y MANÁ DEL JUGADOR
-        return quenombre;                   
-    }                       //IMPORTANTE TURNOS: los objetos también podrán llamar a jugador.atacar() / enemigo.atacar(), para cuando tengan el efecto de que el jugador
-                            //o enemigo ataque más de una vez / se quede sin atacar (en esencia, es lo mismo, salvo por cambiar quién ataca dos veces)
+        //AQUÍ EL RESTO DE JUEGO: CONTEXTO, ENTRAR EN COMBATE, SALIR, GUARDAR.
+        
+        int batalla = combate(jugadores.get(0), jugadores.get(1));
+        
+        if(batalla == 0) return null;
+        else return quenombre;                   
+    }                       
     
     public void jugarParte2(){
-        despedida();
+        
     }
     
     //-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -117,14 +120,43 @@ public class Juego {
     }
     
     
-    
     private void aniadirJugador(String n, Raza r, Clase c){
         jugadores.add(new Jugador(n, r, c));
     }
     
     
+    //IMPORTANTE TURNOS: los objetos también podrán llamar a jugador.atacar() / enemigo.atacar(), para cuando tengan el efecto de que el jugador
+                            //o enemigo ataque más de una vez / se quede sin atacar (en esencia, es lo mismo, salvo por cambiar quién ataca dos veces)
+     //EN LOS COMBATES, FINALIZAR CADA TURNO DICIENDO LA VIDA DE CADA UNO Y MANÁ DEL JUGADOR
     
-    private void despedida(){
+    private int combate(Jugador quien, Jugador enemigo){
+        int i = 1;
+        System.out.println("¡"+enemigo.getNombre()+" quiere pelear!");
         
+        do{
+        System.out.println("------------------------ronda "+i+"------------------------");
+            
+        quien.menuBatalla();
+        
+        enemigo.menuBatalla();
+        
+        System.out.println("-----------------------------------------------------------\n                 "
+                           +quien.getNombre()+quien.getClase().toStringVidaMana()+"\n                 "+enemigo.getClase().toStringVidaMana());
+        i++;
+        } while(quien.getClase().getVida()!=0 || enemigo.getClase().getVida()!=0);
+        
+        if(quien.getClase().getVida() < 0){
+            System.out.println("\n Has perdido...¿Quieres reiniciar el combate? (S/N)");
+            respuesta = teclado.nextLine();
+            
+            if(respuesta.equalsIgnoreCase("s")) return combate(quien, enemigo);
+            else return 0;
+        }
+        
+        else{
+            System.out.println("\n ¡¡Has ganado!!");
+            return 1;
+        }
     }
+    
 }

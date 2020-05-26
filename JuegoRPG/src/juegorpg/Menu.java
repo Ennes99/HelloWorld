@@ -78,6 +78,8 @@ public class Menu {
         Juego nuevo = new Juego();
         
         String nombrepartida = nuevo.jugarParte1(); //ejecuto jugarParte1 directamente asinándole el valor de retorno a "nombrepartida"
+        if(nombrepartida == null) return;
+        
         guardar(nombrepartida,nuevo);   //"guardar" es algo ilusorio, el Juego se va guardando solo a medida que se actualizan los datos. Lo que simula el guardado es tenerlo almacenado
                         //en la lista de partidas
                      
