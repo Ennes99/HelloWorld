@@ -20,8 +20,8 @@ public class Brazalete extends Objeto implements Efecto{
         quien.getClase().sumaORestaMana(-1);
         
            System.out.println(". . . \nTe mueves a gran velocidad. ¡Tienes dos turnos para atacar!");
-           quien.menuBatalla();
-           quien.menuBatalla();
+           quien.menuBatalla(aquien);
+           quien.menuBatalla(aquien);
     }
 }
     

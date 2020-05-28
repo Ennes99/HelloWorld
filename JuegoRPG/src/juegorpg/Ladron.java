@@ -11,15 +11,15 @@ package juegorpg;
  */
 public class Ladron extends Clase{
     
-    public Ladron(String queclase){
-        super(queclase);
+    public Ladron(){
+        queclase = "LADRÓN";
     }
     
     public void setCaracteristicas(){ //las características base de un Jugador. Aumentarán con los bonus o los objetos
         carac_combate.put("atq", 10);
         carac_combate.put("atq_m", 8);
         carac_combate.put("def", 7);
-        carac_combate.put("vel", 14);
+        carac_combate.put("vel", 15);
         carac_combate.put("ps",35);
         carac_combate.put("pm", 3);
         

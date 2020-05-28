@@ -11,13 +11,13 @@ package juegorpg;
  */
 public class Mago extends Clase{
     
-    public Mago(String queclase){
-        super(queclase);
+    public Mago(){
+        queclase = "MAGO";
     }
     
     public void setCaracteristicas(){ //las características base de un Jugador. Aumentarán con los bonus o los objetos
         carac_combate.put("atq", 7);
-        carac_combate.put("atq_m", 14);
+        carac_combate.put("atq_m", 15);
         carac_combate.put("def", 7);
         carac_combate.put("vel", 10);
         carac_combate.put("ps", 30);

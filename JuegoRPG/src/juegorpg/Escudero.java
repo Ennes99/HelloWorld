@@ -10,8 +10,8 @@ package juegorpg;
  */
 public class Escudero extends Clase{
     
-    public Escudero(String queclase){
-        super(queclase);
+    public Escudero(){
+        queclase = "ESCUDERO";
     }
     
     public void setCaracteristicas(){ //las características base de un Jugador. Aumentarán con los bonus o los objetos

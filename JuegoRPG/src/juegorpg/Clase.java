@@ -11,13 +11,12 @@ import java.util.*;
  * @author alepa
  */
 public abstract class Clase {
-    private final String queclase;
+    protected String queclase;
     private final int vidamax;
     private final int manamax;
     protected HashMap<String, Integer> carac_combate; //ataque, ataque mágico, defensa, velocidad, salud y maná
     
-        public Clase(String c){
-            queclase = c.toUpperCase();
+        public Clase(){
             setCaracteristicas();
             vidamax = carac_combate.get("ps");
             manamax = carac_combate.get("pm");

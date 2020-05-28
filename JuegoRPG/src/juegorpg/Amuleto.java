@@ -18,11 +18,11 @@ public abstract class Amuleto extends Objeto implements Efecto{  //"aquien" siem
     public abstract void efectObjeto(Jugador aquien, Jugador quien);
         
     
-    public void efectoPasivo(Jugador quien){  //método previsto solo por si añado otros amuletos
+    /*public void potenciar(Jugador quien){  //método previsto solo por si añado otros amuletos
         Object aux = quien.getClase().getCaracteristicas().get("def");
         Integer original = (Integer) aux;
         
         quien.getClase().getCaracteristicas().put("def", original + 2);
-    }
+    }*/
     
 }

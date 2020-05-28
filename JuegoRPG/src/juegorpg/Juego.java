@@ -45,20 +45,39 @@ public class Juego {
         queraza = setRaza();
         queclase = setClase(queraza);
         
-        //SUBIR A GITHUB Y HACER ACTUALIZACIONES CON GIT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //SUBIR A GITHUB
         
         aniadirJugador(quenombre, queraza, queclase);
+        Jugador prota = jugadores.get(0);
         
-        //AQUÍ EL RESTO DE JUEGO: CONTEXTO, ENTRAR EN COMBATE, SALIR, GUARDAR.
+        System.out.println("Te encuentras en la mazmorra de Alduin. Tras llegar hasta lo más alto de la más alta torre, tienes que \n"
+                + "atravesar la sala del consejero del emperador para poder llegar hasta este malvado. Antes de enfrentarte a él, reúnes provisiones\n"
+                + ". . . \n"+prota.getNombre()+" ha añadido una poción de salud, de maná y un frasco de mocos de trol a su bolsa.");
+        
+        prota.aniadirAMochila(new PocionVida());
+        prota.aniadirAMochila(new PocionMana());
+        prota.aniadirAMochila(new Construccion("mocos"));
+        
+        System.out.println("Estás a punto de entrar en la sala. Dispones de unos momentos para prepararte:");
+        prota.menuReposo();
+        
+        aniadirJugador("enemigo1", Raza.ORCO, new Mago());
+        Jugador enemigo1 = jugadores.get(1);
+        enemigo1.aniadirAMochila(new PocionVida());
+        enemigo1.aniadirAMochila(new PocionVida());
+        
+        System.out.println("Te sientes preparado/a para entrar en la sala y estás lleno/a de determinación. Entras...el consejero, un orco mago, te estaba esperando.\n¡A combatir!");
         
         int batalla = combate(jugadores.get(0), jugadores.get(1));
+        
+        //añadir looteo
         
         if(batalla == 0) return null;
         else return quenombre;                   
     }                       
     
     public void jugarParte2(){
-        
+        //LO ÚLTIMO
     }
     
     //-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -87,8 +106,8 @@ public class Juego {
         if(r == Raza.HUMANO){
         do{    
         switch(respuesta.toUpperCase()){
-            case "E": queclase = new Escudero("Escudero");break;
-            case "L": queclase = new Ladron("Ladrón");break;
+            case "E": queclase = new Escudero();break;
+            case "L": queclase = new Ladron();break;
             default: System.out.println("Esa clase no es válida para tu raza.\n");
         }}
         while(respuesta.toUpperCase() != "E" || respuesta.toUpperCase() != "L");
@@ -98,8 +117,8 @@ public class Juego {
         if(r == Raza.ORCO){
         do{    
         switch(respuesta.toUpperCase()){
-            case "E": queclase = new Escudero("Escudero");break;
-            case "M": queclase = new Mago("Mago");break;
+            case "E": queclase = new Escudero();break;
+            case "M": queclase = new Mago();break;
             default: System.out.println("Esa clase no es válida para tu raza.\n");
         }}
         while(respuesta.toUpperCase() != "E" || respuesta.toUpperCase() != "M");
@@ -109,8 +128,8 @@ public class Juego {
         if(r == Raza.ELFO){
         do{    
         switch(respuesta.toUpperCase()){
-            case "M": queclase = new Escudero("Escudero");break;
-            case "L": queclase = new Ladron("Ladrón");break;
+            case "M": queclase = new Escudero();break;
+            case "L": queclase = new Ladron();break;
             default: System.out.println("Esa clase no es válida para tu raza.\n");
         }}
         while(respuesta.toUpperCase() != "M" || respuesta.toUpperCase() != "L");
@@ -136,9 +155,9 @@ public class Juego {
         do{
         System.out.println("------------------------ronda "+i+"------------------------");
             
-        quien.menuBatalla();
+        quien.menuBatalla(enemigo);
         
-        enemigo.menuBatalla();
+        enemigo.menuBatalla(quien);
         
         System.out.println("-----------------------------------------------------------\n                 "
                            +quien.getNombre()+quien.getClase().toStringVidaMana()+"\n                 "+enemigo.getClase().toStringVidaMana());

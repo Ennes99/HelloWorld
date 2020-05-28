@@ -13,7 +13,7 @@ public class Jugador {
     private String nombre;
     private Raza raza;
     private Clase clase;
-    private ArrayList<Objeto> mochila;
+    private ArrayList<Objeto> mochila;  //podría haber hecho una clase para mochila, pero no tenía gran cosa aparte del ArrayList
     
     public Jugador(String n, Raza r, Clase c){
         nombre = n;
@@ -63,7 +63,7 @@ public class Jugador {
         for(Objeto cada:mochila){
             
             if(res.equalsIgnoreCase(cada.getNombre()) && cada instanceof Amuleto){
-                System.out.println("Ya esta activo.");
+                System.out.println("Se activa desde el menú de combate.");  //para darle más "singularidad" al amuleto
                 usarObjeto(aquien, quien);
             }
             
@@ -88,8 +88,10 @@ public class Jugador {
                             return;
                         }
                         else{
-                            System.out.println("No se ha encontrado el objeto");
-                            usarObjeto(aquien, quien);
+                            if(!nombre.contains("enemigo")){
+                                System.out.println("No se ha encontrado el objeto");
+                                usarObjeto(aquien, quien);
+                            }
                         }
                     } 
                 }
@@ -106,8 +108,10 @@ public class Jugador {
                             return;
                         }
                         else{
-                            System.out.println("No se ha encontrado el objeto");
-                            usarObjeto(aquien, quien);
+                            if(!nombre.contains("enemigo")){
+                                System.out.println("No se ha encontrado el objeto");
+                                usarObjeto(aquien, quien);
+                            }
                         }
                     } 
             }
@@ -115,13 +119,117 @@ public class Jugador {
     }
     
     
-    public void menuBatalla(){
-        //que siempre pueda acceder a sus datos, mochila, etc, además de atacar 
+    public void menuBatalla(Jugador enemigo){  //pensaba hacer una clase entera para ello, pero me pareció muy poca cosa 
+        Random azar = new Random();
+         int num;
+        
+        if(nombre.contains("enemigo")){ //aquí defino qué hace el enemigo en la batalla. Como él no tendrá un menú, es "controlado por la máquina", lo pongo aparte.
+            atacar(enemigo);
+            System.out.println("¡El enemigo te ha atacado y has perdido salud!");
+            num = azar.nextInt();
+            
+            if(clase.getVida() < 6 && num <3){
+                clase.sumaORestaVida(5);
+                System.out.println(". . . \nEl enemigo está bajo de salud, ¡Se ha bebido una poción");
+            }
+        }
+         
+        else{
+            Scanner teclado = new Scanner(System.in);
+            System.out.println("      ¡A PELEAR!\n   1.-Atacar\n   2.-Mochila\n   3.-Amuleto");
+            num = teclado.nextInt();
+            
+            if(num == 1) atacar(enemigo);
+            else if(num == 2) usarObjeto(enemigo, this);
+            else if(num == 3) activarAmuleto(enemigo);
+            else{
+                System.out.println("Opción no válida");
+                menuBatalla(enemigo);
+            }
+        } 
     }
     
-    public void printVidaMana(){
-        System.out.println(nombre + clase.toStringVidaMana());
+    public void menuReposo(){
+        Scanner teclado = new Scanner(System.in);
+        int num=0;
+        
+        System.out.println("      ¡A PELEAR!\n   1.-ver Jugador\n   2.-Mochila\n \nCon cualquier otro número irás a la sala directamente");
+        num = teclado.nextInt();
+            
+        if(num == 1) System.out.println(toString());
+        else if(num == 2){
+            usarObjeto(null, this);
+            menuReposo();
+        }
     }
+    
+    
+    private void combinar(Objeto primero, Objeto segundo){
+        
+        if(primero instanceof Amuleto || segundo instanceof Amuleto) System.out.println("No se puede combinar");
+        
+        if(primero instanceof Pocion){
+            Pocion aux = (Pocion) primero;
+            mochila.add(aux.combinarCon(segundo));
+        }
+        
+        else if(primero instanceof Construccion && !primero.nombre.equalsIgnoreCase(segundo.nombre)){
+            Construccion aux = (Construccion) primero;
+            mochila.add(aux.combinarCon(segundo));
+            
+            Object aux2 = clase.getCaracteristicas().get("ps");
+            Integer original = (Integer) aux2;
+            clase.getCaracteristicas().put("ps", original + 7);
+        }
+            
+    }
+    
+    
+    private void atacar(Jugador aquien){  //los objetos se podrían (ya veré si lo hago o no) usar tanto dentro del combate como fuera. Atacar, sólo para la batalla. Por eso es private.
+        Object aux = clase.getCaracteristicas().get("atq");
+        Object aux2 = aquien.getClase().getCaracteristicas().get("def");
+        Random azar = new Random();
+        
+        Integer miataque = (Integer) aux;
+        Integer sudefensa = (Integer) aux2;
+        
+        System.out.println(". . .\n");
+        
+        if(miataque > sudefensa){
+            aquien.getClase().sumaORestaVida(-(miataque - sudefensa));
+            System.out.println("¡El enemigo pierde vida!");
+        }
+        else{
+            int num = azar.nextInt(9)+1;
+            if(num >= 6){
+                aquien.getClase().sumaORestaVida(-2);
+                System.out.println("Atacas al enemigo, pero no le haces mucho daño...");
+            }
+            
+            else System.out.println("¡El enemigo ha bloqueado el ataque!");
+        }
+    }
+    
+    
+    private void activarAmuleto(Jugador aquien){
+        for(Objeto cada:mochila){
+            if(this.getClase().getNombreClase().equalsIgnoreCase("ladrón") && cada.getNombre().equalsIgnoreCase("brazalete del ladrón")){
+              Amuleto aux = (Amuleto) cada;
+              aux.efectObjeto(aquien, this);
+            }
+            
+            if(this.getClase().getNombreClase().equalsIgnoreCase("mago") && cada.getNombre().equalsIgnoreCase("sombrero del mago")){
+              Amuleto aux = (Amuleto) cada;
+              aux.efectObjeto(aquien, this);
+            }
+            
+            if(this.getClase().getNombreClase().equalsIgnoreCase("escudero") && cada.getNombre().equalsIgnoreCase("casco del escudero")){
+              Amuleto aux = (Amuleto) cada;
+              aux.efectObjeto(aquien, this);
+            }
+        }
+    }
+    
     
     private void printMochila(){
         System.out.println("            MOCHILA");
@@ -145,27 +253,17 @@ public class Jugador {
         return contador;
     }
     
-    
-    
-    private void combinar(Objeto primero, Objeto segundo){
-        
-        if(primero instanceof Amuleto || segundo instanceof Amuleto) System.out.println("No se puede combinar");
-        
-        if(primero instanceof Pocion){
-            Pocion aux = (Pocion) primero;
-            mochila.add(aux.combinarCon(segundo));
-        }
-        
-        else if(primero instanceof Construccion && !primero.nombre.equalsIgnoreCase(segundo.nombre)){
-            Construccion aux = (Construccion) primero;
-            mochila.add(aux.combinarCon(segundo));
-            
-            Object aux2 = clase.getCaracteristicas().get("ps");
-            Integer original = (Integer) aux2;
-            clase.getCaracteristicas().put("ps", original + 7);
-        }
-            
+    public void printVidaMana(){
+        System.out.println(nombre + clase.toStringVidaMana());
     }
     
+    public String toString(){
+        String aux="";
+        for(Object cada:clase.getCaracteristicas().keySet()){
+            if(aux.equals("")) aux+="   "+cada+" / "+clase.getCaracteristicas().get(cada);
+            else aux+="\n                    "+cada+" / "+clase.getCaracteristicas().get(cada);
+        }
+        return "nombre: "+nombre+"\nraza: "+raza+"\nclase: "+clase+"\nCaracterísticas: "+aux;
+    }
     
 }

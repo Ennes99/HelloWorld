@@ -11,7 +11,7 @@ package juegorpg;
  */
 public class Construccion extends Objeto implements Combinable{ //Sangre o mocos, que, si se combinan con botellas, crean pociones. Si se juntan ellos mismos...
                             //Su particularidad es, precisamente, que solo sirve para combinarse
-    public Construccion(String n, String d){
+    public Construccion(String n){
         if(!n.equalsIgnoreCase("sangre") || !n.equalsIgnoreCase("mocos")) nombre = "sangre";
         nombre = n;
         descripcion = "se puede combinar con otro objeto"; //

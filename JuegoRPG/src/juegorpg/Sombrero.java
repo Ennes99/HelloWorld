@@ -21,7 +21,7 @@ public class Sombrero extends Objeto implements Efecto{
         quien.getClase().sumaORestaMana(-2);
         System.out.println("¡"+quien.getNombre()+" usó la telequinesis!¡Ha derribado al enemigo!");
         aquien.getClase().sumaORestaVida(-12);
-        quien.menuBatalla();
+        quien.menuBatalla(aquien);  //contra quien batalla el que usa el amuleto
     }
 
 
