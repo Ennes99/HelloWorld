@@ -23,6 +23,7 @@ public class PocionVida extends Pocion{
         if(util = true){
         quien.getClase().sumaORestaVida(15);
                     //el enemigo tendrá una mínima posibilidad de no atacar en el turno "debido al atrayente olor"
+        inutilizar();
         if(num>=4){
             System.out.println("El enemigo se ha encandilado con el dulce aroma de la poción ¡Su velocidad se reduce un poco!");
             Object aux = aquien.getClase().getCaracteristicas().get("vel");

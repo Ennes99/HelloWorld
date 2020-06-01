@@ -9,7 +9,7 @@ package juegorpg;
  *
  * @author alepa
  */
-public class Brazalete extends Objeto implements Efecto{
+public class Brazalete extends Amuleto implements Efecto{
     
     public Brazalete(){
         nombre = "Brazalete del ladrón";

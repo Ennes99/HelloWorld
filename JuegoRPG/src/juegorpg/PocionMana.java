@@ -24,11 +24,11 @@ public class PocionMana extends Pocion{
         quien.getClase().sumaORestaMana(2);
         System.out.println("Recuperas maná.");
                                 //el enemigo tendrá una mínima posibilidad de atacar dos veces "debido al fuerte olor"
+        inutilizar();
         if(num>=4){
                 System.out.println("El fuerte olor de la poción a alentado al enemigo. ¡Ataca dos veces!");
                 aquien.menuBatalla(aquien);
             }
-        inutilizar();
         }
         
         else System.out.println(". . . \n¡No paso nada!");

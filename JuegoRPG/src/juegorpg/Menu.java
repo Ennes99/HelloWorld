@@ -66,9 +66,9 @@ public class Menu {
     
     private void comenzar(){
         
-        System.out.println("Comenzarás una nueva partida. \"Return\" para volver al menú principal.\n Pulsa enter para continuar.\n");
+        System.out.println("Comenzarás una nueva partida. \"B\" para volver al menú principal.\n Pulsa enter para continuar.\n");
         teclado= new Scanner(System.in);
-        teclado.nextLine();  // Si escribo return, me hará literalmente un return
+        if(teclado.nextLine().equalsIgnoreCase("B")) aplicarMenu(); 
         
         if(partidas.size()>=3) {
             System.out.println("Memoria llena. Borra una partida para poder comenzar una nueva.");

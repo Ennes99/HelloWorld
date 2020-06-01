@@ -9,7 +9,7 @@ package juegorpg;
  *
  * @author alepa
  */
-public class Casco extends Objeto implements Efecto{
+public class Casco extends Amuleto implements Efecto{
   
     public Casco(){
         nombre = "Casco del escudero";

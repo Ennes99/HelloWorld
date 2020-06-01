@@ -11,16 +11,17 @@ package juegorpg;
 public class Escudero extends Clase{
     
     public Escudero(){
+        super();
         queclase = "ESCUDERO";
     }
     
     public void setCaracteristicas(){ //las características base de un Jugador. Aumentarán con los bonus o los objetos
-        carac_combate.put("atq", 8);
-        carac_combate.put("atq_m", 7);
-        carac_combate.put("def", 13);
-        carac_combate.put("vel", 7);
-        carac_combate.put("ps", 40);
-        carac_combate.put("pm", 1);
+        super.getCaracteristicas().put("atq", 8);
+        super.getCaracteristicas().put("atq_m", 7);
+        super.getCaracteristicas().put("def", 13);
+        super.getCaracteristicas().put("vel", 7);
+        super.getCaracteristicas().put("ps", 40);
+        super.getCaracteristicas().put("pm", 1);
         
     }
     

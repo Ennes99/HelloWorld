@@ -14,20 +14,13 @@ public abstract class Clase {
     protected String queclase;
     private final int vidamax;
     private final int manamax;
-    protected HashMap<String, Integer> carac_combate; //ataque, ataque mágico, defensa, velocidad, salud y maná
+    private HashMap<String, Integer> carac_combate; //ataque, ataque mágico, defensa, velocidad, salud y maná -- Me tenía más sentido ponerlo en private, ya que es algo que concierne a todas las clases, no específicamente a cada una
     
         public Clase(){
+            carac_combate = new HashMap();
             setCaracteristicas();
             vidamax = carac_combate.get("ps");
             manamax = carac_combate.get("pm");
-        }
-        
-        public int getVidaTotal(){
-            return vidamax;
-        }
-        
-        public int getManaTotal(){
-            return manamax;
         }
         
         public int getVida(){

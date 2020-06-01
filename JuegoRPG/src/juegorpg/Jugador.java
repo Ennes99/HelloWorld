@@ -97,7 +97,7 @@ public class Jugador {
                 }
             }
             
-            else{
+            else if(res.equalsIgnoreCase(cada.getNombre()) && cada instanceof Construccion){
                 Construccion aux = (Construccion) cada;
                 System.out.println("Elige un objeto para combinar.");
                     printMochila();
@@ -153,7 +153,7 @@ public class Jugador {
         Scanner teclado = new Scanner(System.in);
         int num=0;
         
-        System.out.println("      ¡A PELEAR!\n   1.-ver Jugador\n   2.-Mochila\n \nCon cualquier otro número irás a la sala directamente");
+        System.out.println("      MENÚ\n   1.-ver Jugador\n   2.-Mochila\n \n\n(Con cualquier otro número irás a la sala directamente)");
         num = teclado.nextInt();
             
         if(num == 1) System.out.println(toString());
@@ -234,11 +234,8 @@ public class Jugador {
     private void printMochila(){
         System.out.println("            MOCHILA");
         
-        for(int i=0;i<mochila.size()/2;i++){
-            if(i!= (mochila.size()/2)) System.out.println(mochila.get(i).toString()+contarObjetos(mochila.get(i))+"              "
-                                                                            + ""+mochila.get(mochila.size() - i).toString()+contarObjetos(mochila.get(mochila.size()-i)));
-            
-            else System.out.println(mochila.get(i).toString());
+        for(int i=0;i<mochila.size();i++){
+           System.out.println(mochila.get(i).toString()+"   x"+contarObjetos(mochila.get(i)));
         }
     }
   
